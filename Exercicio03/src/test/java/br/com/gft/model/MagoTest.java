@@ -1,5 +1,6 @@
 package br.com.gft.model;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
@@ -27,16 +28,18 @@ public class MagoTest {
 		
 		mago.lvlUp();
 		
-		assertEquals(1, mago.getLevel()); 
-		assertEquals(2, mago.getForca()); 
-		assertEquals(3, mago.getInteligencia()); 
-		assertEquals(3, mago.getMana()); 
-		assertEquals(2, mago.getVida()); 		
+		assertAll("Deve retornar os atributos do mago após o lvlUp",
+				() -> assertEquals(1, mago.getLevel()),
+				() -> assertEquals(2, mago.getForca()),
+				() -> assertEquals(3, mago.getInteligencia()),
+				() -> assertEquals(3, mago.getMana()),
+				() -> assertEquals(2, mago.getVida()));		
 	}
 	
 	@Test
 	void deveRetornarOValorDoAttack() throws Exception {	
 		when(magoTestAttack.attack()).thenReturn(150);
+		
 		assertEquals(150, magoTestAttack.attack());
 	}
 	
@@ -48,14 +51,22 @@ public class MagoTest {
 	}
 	
 	@Test
-	void deveRetornarExceptionAoAdicionarUmNomeDeMagiaVaziaOuEmBrancoNaListaDeMagias() throws Exception {
-		assertThrows(IllegalArgumentException.class, () -> mago.aprenderMagia(""));
-		assertThrows(IllegalArgumentException.class, () -> mago.aprenderMagia("    "));
+	void deveRetornarExceptionAoAdicionarUmNomeDeMagiaVaziaNaListaDeMagias() throws Exception {		
+		Exception exception = assertThrows(IllegalArgumentException.class, () -> mago.aprenderMagia(""));
+		
+		assertEquals("O nome da magia não pode ser nulo ou em branco.", exception.getMessage());
+	}
+	
+	@Test
+	void deveRetornarExceptionAoAdicionarUmNomeDeMagiaEmBrancoNaListaDeMagias() throws Exception {		
+		Exception exception = assertThrows(IllegalArgumentException.class, () -> mago.aprenderMagia("    "));
+		
+		assertEquals("O nome da magia não pode ser nulo ou em branco.", exception.getMessage());
 	}
 	
 	@Test
 	void deveRetornarExceptionAoAdicionarUmNomeNuloNaListaDeMagias() throws Exception {
-		assertThrows(NullPointerException.class, () -> mago.aprenderMagia(null));
+		assertThrows(NullPointerException.class, () -> mago.aprenderMagia(null));		
 	}	
 
 }

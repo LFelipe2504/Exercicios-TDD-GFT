@@ -41,7 +41,7 @@ public class Guerreiro extends Personagem {
 	
 	public void aprenderHabilidade(String novaHabilidade) {
 		if(novaHabilidade.isBlank())
-			throw new IllegalArgumentException("O nome da magia não pode ser nulo ou em branco.");
+			throw new IllegalArgumentException("O nome da habilidade não pode ser nulo ou em branco.");
 		else 
 			habilidades.add(novaHabilidade);
 	}

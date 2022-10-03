@@ -121,10 +121,25 @@ public class VeiculoTest {
 	}
 	 
 	@Test
-	void deveRetornarExceptionAoPassarNenhumaCorEmBrancoOuNumerosAoPintar() throws Exception {		
-		assertThrows(IllegalArgumentException.class,() -> veiculo.pintar(""));
-		assertThrows(IllegalArgumentException.class,() -> veiculo.pintar("  "));
-		assertThrows(IllegalArgumentException.class,() -> veiculo.pintar("123"));
+	void deveRetornarExceptionAoPassarNenhumaCorAoPintar() throws Exception {	
+		
+		Exception exception = assertThrows(IllegalArgumentException.class,() -> veiculo.pintar(""));
+		
+		assertEquals("A cor não pode ser vazia, em branco ou números.", exception.getMessage());
+	}
+	
+	@Test
+	void deveRetornarExceptionAoPassarCorEmBrancoAoPintar() throws Exception {		
+		Exception exception = assertThrows(IllegalArgumentException.class,() -> veiculo.pintar("   "));
+		
+		assertEquals("A cor não pode ser vazia, em branco ou números.", exception.getMessage());
+	}
+	
+	@Test
+	void deveRetornarExceptionAoPassarNumerosParaCorAoPintar() throws Exception {		
+		Exception exception = assertThrows(IllegalArgumentException.class,() -> veiculo.pintar("123"));
+		
+		assertEquals("A cor não pode ser vazia, em branco ou números.", exception.getMessage());
 	}
 
 }

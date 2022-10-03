@@ -1,5 +1,6 @@
 package br.com.gft.model;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
@@ -23,15 +24,16 @@ public class GuerreiroTest {
 	}
 	
 	@Test
-	void aoSubirDeNivelDeveAumentarAtributosForcaEManaSobeMais() throws Exception {
+	void aoSubirDeNivelDeveAumentarAtributosForcaEVidaSobeMais() throws Exception {
 		
 		guerreiro.lvlUp();
 		
-		assertEquals(1, guerreiro.getLevel()); 
-		assertEquals(3, guerreiro.getForca()); 
-		assertEquals(2, guerreiro.getInteligencia()); 
-		assertEquals(2, guerreiro.getMana()); 
-		assertEquals(3, guerreiro.getVida()); 		
+		assertAll("Deve retornar os atributos do guerreiro após o lvlUp",
+				() -> assertEquals(1, guerreiro.getLevel()),
+				() -> assertEquals(3, guerreiro.getForca()),
+				() -> assertEquals(2, guerreiro.getInteligencia()),
+				() -> assertEquals(2, guerreiro.getMana()),
+				() -> assertEquals(3, guerreiro.getVida()));			
 	}
 	
 	@Test
@@ -48,9 +50,17 @@ public class GuerreiroTest {
 	}
 	
 	@Test
-	void deveRetornarExceptionAoAdicionarUmNomeDeHabilidadeVaziaOuEmBrancoNaListaDeMagias() throws Exception {
-		assertThrows(IllegalArgumentException.class, () -> guerreiro.aprenderHabilidade(""));
-		assertThrows(IllegalArgumentException.class, () -> guerreiro.aprenderHabilidade("    "));
+	void deveRetornarExceptionAoAdicionarUmNomeDeHabilidadeVaziaNaListaDeMagias() throws Exception {
+		Exception exception = assertThrows(IllegalArgumentException.class, () -> guerreiro.aprenderHabilidade(""));
+		
+		assertEquals("O nome da habilidade não pode ser nulo ou em branco.", exception.getMessage());
+	}
+	
+	@Test
+	void deveRetornarExceptionAoAdicionarUmNomeDeHabilidadeEmBrancoNaListaDeMagias() throws Exception {
+		Exception exception = assertThrows(IllegalArgumentException.class, () -> guerreiro.aprenderHabilidade("    "));
+		
+		assertEquals("O nome da habilidade não pode ser nulo ou em branco.", exception.getMessage());
 	}
 	
 	@Test

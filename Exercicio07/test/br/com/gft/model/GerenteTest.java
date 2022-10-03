@@ -10,9 +10,7 @@ public class GerenteTest {
 	void deveCalcularBonificacao() throws Exception {
 		Gerente gerente = new Gerente("Lucas", 30, 3000.00);
 		
-		assertEquals(13000, gerente.bonificacao());
-		
-		
+		assertEquals(13000, gerente.bonificacao());		
 	}
 
 }

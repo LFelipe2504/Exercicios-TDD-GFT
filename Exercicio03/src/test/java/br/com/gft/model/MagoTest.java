@@ -3,24 +3,25 @@ package br.com.gft.model;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import br.com.gft.service.GeradorNumeroRandonico;
 
 @ExtendWith(MockitoExtension.class)
 public class MagoTest {
 	
 	private Mago mago;
-	@Mock
-	private Mago magoTestAttack;	
+	
 	
 	@BeforeEach
 	void setup() throws Exception {
-		mago = new Mago();		
+		mago = new Mago();				
 	}
 	
 	@Test
@@ -38,9 +39,12 @@ public class MagoTest {
 	
 	@Test
 	void deveRetornarOValorDoAttack() throws Exception {	
-		when(magoTestAttack.attack()).thenReturn(150);
+		mockStatic(GeradorNumeroRandonico.class);
+		mago.setInteligencia(10);
+		mago.setLevel(10);
+		when(GeradorNumeroRandonico.gerarNumeroRandonico()).thenReturn(10);
 		
-		assertEquals(150, magoTestAttack.attack());
+		assertEquals(110, mago.attack());		
 	}
 	
 	@Test

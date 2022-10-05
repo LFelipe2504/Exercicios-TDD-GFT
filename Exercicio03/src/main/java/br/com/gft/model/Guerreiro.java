@@ -2,7 +2,8 @@ package br.com.gft.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+
+import br.com.gft.service.GeradorNumeroRandonico;
 
 public class Guerreiro extends Personagem {	
 
@@ -32,9 +33,7 @@ public class Guerreiro extends Personagem {
 	}
 	
 	public int attack() {
-		Random random = new Random();
-		int numAleatorio = random.nextInt(301);
-		int ValorDoAttack = (getForca() * getLevel()) + numAleatorio;
+		int ValorDoAttack = (getForca() * getLevel()) + GeradorNumeroRandonico.gerarNumeroRandonico();		
 		return ValorDoAttack;	
 		
 	}

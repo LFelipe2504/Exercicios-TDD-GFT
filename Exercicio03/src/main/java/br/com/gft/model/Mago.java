@@ -2,7 +2,8 @@ package br.com.gft.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+
+import br.com.gft.service.GeradorNumeroRandonico;
 
 public class Mago extends Personagem {	
 
@@ -29,11 +30,8 @@ public class Mago extends Personagem {
 		setVida(getVida()+2);	
 	}
 
-	public int attack() {
-		Random random = new Random();
-		int numAleatorio = random.nextInt(301);		
-		int ValorDoAttack = (getInteligencia() * getLevel()) + numAleatorio;
-		
+	public int attack() {			
+		int ValorDoAttack = (getInteligencia() * getLevel()) + GeradorNumeroRandonico.gerarNumeroRandonico();		
 		return ValorDoAttack;		
 	}
 
